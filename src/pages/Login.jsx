@@ -16,7 +16,11 @@ export default function Login() {
       localStorage.setItem("barber", JSON.stringify(data.barber));
       navigate("/dashboard");
     } catch (err) {
-      setError("Credenciales inválidas");
+      if (err?.response?.status === 503) {
+        setError("Servicio no disponible. Intenta en unos segundos.");
+      } else {
+        setError("Credenciales inválidas");
+      }
     }
   };
   return (
